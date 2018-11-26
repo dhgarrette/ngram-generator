@@ -3,13 +3,15 @@
 Generate text in the style of the text in the given files.
 
 ## Get Started
-### Install Git on your computer
-I have no idea how to do this. wahhh.
+### Option 1: using Git
+1. Install Git on your computer (I have no idea how to do this. wahhh.)
+2. Download the repository
+    1. open the command line
+    2. Use the command `cd path\to\directory` to navigate to the directory where you want to work.
+    3. Use the command `git clone git@github.com:dhgarrette/saul-bot.git` to download the repository. If you open the folder you should see that it has downloaded inside a new folder called `saul-bot`.
 
-### Download the repository
-1. open the command line
-2. Use the command `cd path\to\directory` to navigate to the directory where you want to work.
-3. Use the command `git clone git@github.com:dhgarrette/saul-bot.git` to download the repository. If you open the folder you should see that it has downloaded inside a new folder called `saul-bot`.
+### Option 2: just download the file
+In the upper right of the github home page you can choose `download`. You'll get a zipped folder that you have to unzip. It will be called saul-bot-master, so either rename to saul-bot or plann accordingly.
 
 ### Create a training file
 The repository will come with a training file (alice.txt) that will create an aliceinwonderlandbot. But if you want it based on someone else's work, you'll need to give it something else to train on. It should be a `.txt` file full of words by the person you want to roboticize. Save the file in `saul-bot`.
