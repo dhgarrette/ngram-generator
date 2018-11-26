@@ -8,7 +8,7 @@ Generate text in the style of the text in the given files.
 
 Train a 4-gram word-based language model on a file called `alice.txt` and generate 5 lines of text.
 
-    python2 ngrams.py alice.txt --order=4 --chars=false --lines=5
+    python2 ngrams.py alice.txt --chars=false --order=4 --lines=5
 
 This will produce a sequence of words that are found in the original text. Each word generated will be based on (at most) the previous three words (`--order=4`).
 
@@ -16,7 +16,7 @@ This will produce a sequence of words that are found in the original text. Each 
 
 Train a 7-gram character-based language model on a file called `alice.txt` and generate 10 lines of text.
 
-    python2 ngrams.py alice.txt --order=7 --chars=true --lines=10
+    python2 ngrams.py alice.txt --chars=true --order=7 --lines=10
 
 This will produce a sequence of characters, not words, which means that the output text may contain words that are not actual words.
 
