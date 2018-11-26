@@ -19,12 +19,14 @@ The repository will come with a training file (alice.txt) that will create an al
 ### Run the program
 There are examples below, but in general you'll need to do the following things:
 1. Choose a file containing training text (i.e. alice.txt)
-2. Decide on length for your story (i.e. 5 lines)
-3. Decide on the order, i.e. how much linguistic context you want the bot to use. The standard is an order of 3, meaning it's a 3-gram or trigram model that chooses each word based on the two words that precede it.
-4. Open the command line and navigate to the `saul-bot` folder using the cd command.
-5. Enter a command to run the program. There are examples below, but the basic format is:
-` programmingLanguage prograName.py trainingFile.txt --chars=false --order=number --lines=number`  
-`python2 ngrams.py alice.txt --chars=false --order=3 --lines=5`
+2. Decide if you want to use a word-based model (i.e. it only generates words - chars=false) or a character-based model (i.e. it generates character sequences that may or may not be words. `chars=true`)
+3. Decide on the order, i.e. how much linguistic context you want the bot to use. The standard is an order of 3 (`order=3`), meaning it's a 3-gram or trigram model that chooses each word based on the two words that precede it.
+4. Decide on length for your story (i.e. 5 lines. `lines=5`)
+5. Choose a filename for your story (i.e. `output=storyaboutsaul.txt`).
+5. Open the command line and navigate to the `saul-bot` folder using the cd command.
+6. Enter a command to run the program. There are examples below, but the basic format is:
+` programmingLanguage prograName.py trainingFile.txt --chars=false --order=number --lines=number --output=outputfilename.txt`  
+`python2 ngrams.py alice.txt --chars=false --order=3 --lines=5 --output=storyaboutsaul.txt`
 
 
 ## Examples
