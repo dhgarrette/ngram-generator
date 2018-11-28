@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import nested_scopes
 from __future__ import generators
 from __future__ import division
@@ -94,11 +96,11 @@ class NGramModel(object):
 def read_corpus(files, chars=False, remove_newlines=False):
   output_lines = []
   for filename in files:
-    with codecs.open(filename, 'r', encoding='utf8') as f:
+    with codecs.open(filename, 'r', encoding='utf-8') as f:
       data = f.read()
       if remove_newlines:
         data = re.sub('[\n\r\t]', ' ', data)
-      for punc in set('!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~'):
+      for punc in set('!"#$%&()*+,./:;<=>?@[\\]^_`{|}~–—“”…'):
         data = data.replace(punc, ' ' + punc + ' ')
       for line in data.split('\n'):
         if not line: continue
@@ -141,13 +143,15 @@ if __name__ == "__main__":
   parser.add_argument('files', metavar='FILE', nargs='+',
                       help="The files to use for language model training.")
   parser.add_argument('--lines', dest='lines', type=int, default=10,
-                      help="The number of lines of text to generate.")
+                      help="The number of lines of text to generate. Default: 10")
   parser.add_argument('--order', dest='order', type=int, default=4,
-                      help="The order of the n-gram model (the maximum 'n').")
+                      help="The order of the n-gram model (the maximum 'n'). Default: 4")
   parser.add_argument('--chars', dest='chars', default='false',
-                      help="Use a character-based model instead of a word-based model.")
+                      help="Use a character-based model instead of a word-based model. Default: false")
   parser.add_argument('--stop_symbols', dest='stop_symbols', default='',
                       help="Symbols that will stop the generation of a single text. This is optional, but an example might be ----stop_symbols=\".?!\"")
+  parser.add_argument('--backoff_exponent', dest='backoff_exponent', type=float, default=3,
+                      help="A higher exponent means that the model will be less likely to randomly use shorter contexts. Default: 3")
   args = parser.parse_args()
   chars = (len(args.chars) and args.chars.lower()[:1] in 'ty')
 
@@ -157,17 +161,17 @@ if __name__ == "__main__":
   debuglog('Reading Corpus')
   corpus = read_corpus(args.files, chars=chars, remove_newlines=False)
   debuglog('Constructing NGramModel')
-  model = NGramModel(corpus, order=args.order, smoothing_count=1.0, backoff_exponent=3)
+  model = NGramModel(corpus, order=args.order, smoothing_count=1.0, backoff_exponent=args.backoff_exponent)
   debuglog('Generating Texts')
   for _ in xrange(args.lines):
     separator = '' if chars else ' '
     text = separator.join(model.generate(stop_symbols=set(args.stop_symbols), max_length=-1))
     text = re.sub('^ ', '', text)
-    text = re.sub(' ([.,?!:;\\)])', '\\1', text)
-    text = re.sub('([\\(]) ', '\\1', text)
+    text = re.sub(' ([.,?!:;\\)’”])', '\\1', text)
+    text = re.sub('([\\(‘“]) ', '\\1', text)
     text = re.sub('" ([^"]+) "', '"\\1"', text)
     text = re.sub('_ ([^_]+) _', '_\\1_', text)
     text = re.sub('- - - -', '----', text)
     text = re.sub('- -', '--', text)
     text = re.sub(' - ', '-', text)
-    print(text)
+    print(text, '\n')

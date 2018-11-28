@@ -24,6 +24,7 @@ This will produce a sequence of characters, not words, which means that the outp
 
     usage: ngrams.py [-h] [--lines LINES] [--order ORDER] [--chars CHARS]
                      [--stop_symbols STOP_SYMBOLS]
+                     [--backoff_exponent BACKOFF_EXPONENT]
                      FILE [FILE ...]
 
     positional arguments:
@@ -31,11 +32,15 @@ This will produce a sequence of characters, not words, which means that the outp
 
     optional arguments:
       -h, --help            show this help message and exit
-      --lines LINES         The number of lines of text to generate.
+      --lines LINES         The number of lines of text to generate. Default: 10
       --order ORDER         The order of the n-gram model (the maximum 'n').
+                            Default: 4
       --chars CHARS         Use a character-based model instead of a word-based
-                            model.
+                            model. Default: false
       --stop_symbols STOP_SYMBOLS
                             Symbols that will stop the generation of a single
                             text. This is optional, but an example might be
                             ----stop_symbols=".?!"
+      --backoff_exponent BACKOFF_EXPONENT
+                            A higher exponent means that the model will be less
+                            likely to randomly use shorter contexts. Default: 3
