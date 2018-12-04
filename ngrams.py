@@ -149,7 +149,7 @@ if __name__ == "__main__":
   parser.add_argument('--chars', dest='chars', default='false',
                       help="Use a character-based model instead of a word-based model. Default: false")
   parser.add_argument('--stop_symbols', dest='stop_symbols', default='',
-                      help="Symbols that will stop the generation of a single text. This is optional, but an example might be ----stop_symbols=\".?!\"")
+                      help="Symbols that will stop the generation of a single text. This is optional, but an example might be --stop_symbols=\".?!\"")
   parser.add_argument('--backoff_exponent', dest='backoff_exponent', type=float, default=3,
                       help="A higher exponent means that the model will be less likely to randomly use shorter contexts. Default: 3")
   args = parser.parse_args()

@@ -67,7 +67,7 @@ This will produce a sequence of characters, not words, which means that the outp
       --stop_symbols STOP_SYMBOLS
                             Symbols that will stop the generation of a single
                             text. This is optional, but an example might be
-                            ----stop_symbols=".?!"
+                            --stop_symbols=".?\!"
       --backoff_exponent BACKOFF_EXPONENT
                             A higher exponent means that the model will be less
                             likely to randomly use shorter contexts. Default: 3
