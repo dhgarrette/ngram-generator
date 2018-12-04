@@ -166,6 +166,8 @@ if __name__ == "__main__":
   for _ in xrange(args.lines):
     separator = '' if chars else ' '
     text = separator.join(model.generate(stop_symbols=set(args.stop_symbols), max_length=-1))
+    text = re.sub('[“”]', '"', text)
+    text = re.sub('[‘’]', "'", text)
     text = re.sub('^ ', '', text)
     text = re.sub(' ([.,?!:;\\)’”])', '\\1', text)
     text = re.sub('([\\(‘“]) ', '\\1', text)
