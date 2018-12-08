@@ -39,7 +39,7 @@ class ProbabilityDistribution(object):
       total_count += self._vocab_size * self._smoothing_count
     random_count = random.random() * total_count
     count_accumulation = 0.0
-    for e,c in self._element_counts.iteritems():
+    for e,c in self._element_counts.items():
       count_accumulation += (c + self._smoothing_count)
       if count_accumulation >= random_count:
         return e
@@ -50,17 +50,17 @@ class NGramModel(object):
     vocab_size = len(set(element for line in lines for element in line))
     self._conditional_prob_dists = dict()
     n_counts = dict()
-    for n in xrange(order,0,-1):
+    for n in range(order,0,-1):
       self._conditional_prob_dists[n] = dict()
       n_counts[n] = n**backoff_exponent
       conditional_counts = defaultdict(lambda: defaultdict(int))
       for line in lines:
         buffered_line = ([buffer_symbol] * (n-1)) + list(line) + [buffer_symbol]
-        for i in xrange(len(line) + 1):
+        for i in range(len(line) + 1):
           context = tuple(buffered_line[i:i+n-1])
           element = buffered_line[i+n-1]
           conditional_counts[context][element] += 1
-      for context, element_counts in conditional_counts.iteritems():
+      for context, element_counts in conditional_counts.items():
         self._conditional_prob_dists[n][context] = \
             ProbabilityDistribution(element_counts, smoothing_count, vocab_size)
 
@@ -70,7 +70,7 @@ class NGramModel(object):
 
   def probability(self, context, element):
     total_prob = 0.0
-    for n in xrange(self._order,0,-1):
+    for n in range(self._order,0,-1):
       total_prob += self._dist_of_conditional_dists.probability(n) * \
                         self._conditional_prob_dists[n][context].probability(element)
 
@@ -81,7 +81,7 @@ class NGramModel(object):
              or (len(output) > 0 and output[-1] in stop_symbols):
         return output[self._order-1:]
       debuglog('Generate_next_element')
-      for n in xrange(self._dist_of_conditional_dists.sample(),0,-1):
+      for n in range(self._dist_of_conditional_dists.sample(),0,-1):
         context = tuple(output[-n+1:]) if n > 1 else tuple()
         debuglog('  n=%s,  context=%s'%(n, ' '.join(context)))
         if context not in self._conditional_prob_dists[n]: continue
@@ -122,17 +122,17 @@ if __name__ == "__main__":
   # print('%-5s %.4f' % ('total', pd['a']+pd['b']+pd['c']+pd['z']*(5-3)))
   # print()
   # d = defaultdict(float)
-  # for _ in xrange(100000):
+  # for _ in range(100000):
   #   d[pd.sample()] += 1/100000
-  # for e,p in sorted(d.iteritems()):
+  # for e,p in sorted(d.items()):
   #   print('%-5s %.4f' % (e, p))
   # print('%-5s %.4f' % (None, d[None]))
   # print('%-5s %.4f' % ('total', sum(d.values())))
   # print()
   # d = defaultdict(float)
-  # for _ in xrange(1000000):
+  # for _ in range(1000000):
   #   d[pd.sample(smooth=True)] += 1/1000000
-  # for e,p in sorted(d.iteritems()):
+  # for e,p in sorted(d.items()):
   #   if e is not None:
   #     print('%-5s %.4f %.4f' % (e,       p,         (p-pd[e])))
   # print(    '%-5s %.4f %.4f' % (None,    d[None]/2, (d[None]/2-pd[None])))
@@ -163,7 +163,7 @@ if __name__ == "__main__":
   debuglog('Constructing NGramModel')
   model = NGramModel(corpus, order=args.order, smoothing_count=1.0, backoff_exponent=args.backoff_exponent)
   debuglog('Generating Texts')
-  for _ in xrange(args.lines):
+  for _ in range(args.lines):
     separator = '' if chars else ' '
     text = separator.join(model.generate(stop_symbols=set(args.stop_symbols), max_length=-1))
     text = re.sub('[“”]', '"', text)
