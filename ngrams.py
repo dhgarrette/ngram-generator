@@ -148,6 +148,8 @@ if __name__ == "__main__":
                       help="The order of the n-gram model (the maximum 'n'). Default: 4")
   parser.add_argument('--chars', dest='chars', default='false',
                       help="Use a character-based model instead of a word-based model. Default: false")
+  parser.add_argument('--max_length', dest='max_length', type=int, default=1000,
+                      help="The maximum number of symbols generated for a line.")
   parser.add_argument('--stop_symbols', dest='stop_symbols', default='',
                       help="Symbols that will stop the generation of a single text. This is optional, but an example might be --stop_symbols=\".?!\"")
   parser.add_argument('--backoff_exponent', dest='backoff_exponent', type=float, default=3,
@@ -165,7 +167,7 @@ if __name__ == "__main__":
   debuglog('Generating Texts')
   for _ in range(args.lines):
     separator = '' if chars else ' '
-    text = separator.join(model.generate(stop_symbols=set(args.stop_symbols), max_length=-1))
+    text = separator.join(model.generate(stop_symbols=set(args.stop_symbols), max_length=args.max_length))
     text = re.sub('[“”]', '"', text)
     text = re.sub('[‘’]', "'", text)
     text = re.sub('^ ', '', text)

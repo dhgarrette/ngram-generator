@@ -50,7 +50,7 @@ This will produce a sequence of characters, not words, which means that the outp
 ## Full usage
 
     usage: ngrams.py [-h] [--lines LINES] [--order ORDER] [--chars CHARS]
-                     [--stop_symbols STOP_SYMBOLS]
+                     [--max_length MAX_LENGTH] [--stop_symbols STOP_SYMBOLS]
                      [--backoff_exponent BACKOFF_EXPONENT]
                      FILE [FILE ...]
 
@@ -64,6 +64,8 @@ This will produce a sequence of characters, not words, which means that the outp
                             Default: 4
       --chars CHARS         Use a character-based model instead of a word-based
                             model. Default: false
+      --max_length MAX_LENGTH
+                            The maximum number of symbols generated for a line.
       --stop_symbols STOP_SYMBOLS
                             Symbols that will stop the generation of a single
                             text. This is optional, but an example might be
